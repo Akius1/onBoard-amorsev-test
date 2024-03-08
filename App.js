@@ -5,15 +5,46 @@ import { useState } from 'react';
 export default function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [errors, setErrors] = useState({})
+
+  const validateForm = () => {
+    let errors = {};
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+
+    if(reg.test(email) === false) errors.email = "Email is not correct"
+    if(!email) errors.email  = "Email is required";
+    if(!password) errors.password = "Password is required";
+
+    setErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  }
+
+  const handleSubmit = () =>{
+    if(validateForm()){
+      console.log("Submitted", email, password);
+
+      setEmail("");
+      setPassword("");
+      setErrors({});
+    }
+  }
   return (
     <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0} style={styles.container}>
       <View style = {styles.form}>
         <Text style={styles.label}>Email</Text>
         <TextInput style={styles.input} placeholder='Enter your email' value={email} onChangeText={setEmail} />
-
+        {
+          errors.email  && <Text style={styles.errorText}>{errors.email}</Text>
+        }
         <Text style={styles.label}>Password</Text>
         <TextInput style={styles.input} placeholder='Enter your password' secureTextEntry value={password} onChangeText={setPassword}/>
-        <Button title='login' onPress={() => {}}  />
+
+        {
+          errors.password  && <Text style={styles.errorText}>{errors.password}</Text>
+        }
+        <Button title='login' onPress={() => {handleSubmit()}}  />
       </View>
     </KeyboardAvoidingView>
   );
@@ -52,6 +83,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     padding: 10,
     borderRadius: 5,
+  },
+  errorText:{
+    color: "red",
+    marginBottom: 10
   }
 
   });
