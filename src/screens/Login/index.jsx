@@ -9,16 +9,17 @@ import {
   Platform,
   TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Login() {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [errors, setErrors] = useState({});
+
+  const { login } = useContext(AuthContext);
 
   const validateForm = () => {
     let errors = {};
@@ -36,7 +37,7 @@ export default function Login() {
   const handleSubmit = () => {
     if (validateForm()) {
       console.log("Submitted", email, password);
-
+      login();
       setEmail("");
       setPassword("");
       setErrors({});
@@ -74,7 +75,7 @@ export default function Login() {
           <Text style={styles.errorText}>{errors.password}</Text>
         )}
         <Button
-        style={styles.login}
+          style={styles.login}
           title="login"
           onPress={() => {
             handleSubmit();
@@ -82,7 +83,7 @@ export default function Login() {
         />
         <View style={styles.signup}>
           <Text>Don't have an account? </Text>
-          <TouchableOpacity onPress={() => navigation.push('SignUp')}>
+          <TouchableOpacity onPress={() => navigation.push("SignUp")}>
             <Text style={styles.signUpText}>Sign up</Text>
           </TouchableOpacity>
         </View>
@@ -135,15 +136,15 @@ const styles = StyleSheet.create({
     width: "100%",
     objectFit: "cover",
   },
-  login:{
-    marginBottom: 15
+  login: {
+    marginBottom: 15,
   },
-  signup:{
+  signup: {
     marginTop: 15,
-flexDirection: "row",
-justifyContent: "center",
+    flexDirection: "row",
+    justifyContent: "center",
   },
-  signUpText:{
-    color: "#7AD7F0"
-  }
+  signUpText: {
+    color: "#7AD7F0",
+  },
 });

@@ -1,5 +1,4 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Pressable, Text } from "react-native";
 import Login from "../screens/Login";
 import SignUp from "../screens/SignUp";
 

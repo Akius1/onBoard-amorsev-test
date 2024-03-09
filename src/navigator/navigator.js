@@ -5,42 +5,66 @@ import HomeScreen from "../screens/Home";
 import Profile from "../screens/Profile";
 import About from "../screens/About";
 import Resources from "../screens/Resources";
-import Ionicons from "@expo/vector-icons/Ionicons"
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { Pressable, Text } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
-function MyTabs(){
-    return(
-        <Tab.Navigator
-        screenOptions={{
-            // tabBarShowLabel
-            tabBarLabelPosition: "below-icon",
-            tabBarActiveTintColor: "purple"
+function MyTabs({ logout }) {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+
+        tabBarLabelPosition: "below-icon",
+        tabBarActiveTintColor: "purple",
+        headerRight: () => (
+          <Pressable onPress={() => logout()}>
+            <Text
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {" "}
+              <Ionicons name={"log-out"} size={20} />{" "}
+            </Text>
+          </Pressable>
+        ),
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: () => <Ionicons name={"home"} size={20} />,
         }}
-        >
-            <Tab.Screen name="Home" component={HomeScreen}  options={{
-                // tabBarLabel: "Home",
-                tabBarIcon: () => <Ionicons name={"home"} size={20} />
-            }}/>
-            {/* <Tab.Screen name="Login" component={Login}  options={{
-                // tabBarLabel: "Home",
-                tabBarIcon: () => <Ionicons name={"log-in"} size={20} />
-            }}/> */}
-            <Tab.Screen name="Profile" component={Profile} options={{
-                tabBarLabel: "Profile",
-                tabBarIcon: () => <Ionicons name={"person"} size={20} />
-            }}/>
-            <Tab.Screen name="About" component={About} options={{
-                tabBarLabel: "About",
-                tabBarIcon: () => <Ionicons name={"paper-plane-outline"} size={20} />
-            }}/>
-            {/* <Tab.Screen name="SignUp" component={SignUp} /> */}
-            <Tab.Screen name="Resources" component={Resources} options={{
-                // tabBarLabel: "Home",
-                tabBarIcon: () => <Ionicons name={"list"} size={20} />
-            }} />
-        </Tab.Navigator>
-    )
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarLabel: "Profile",
+          tabBarIcon: () => <Ionicons name={"person"} size={20} />,
+        }}
+      />
+      <Tab.Screen
+        name="About"
+        component={About}
+        options={{
+          tabBarLabel: "About",
+          tabBarIcon: () => <Ionicons name={"paper-plane-outline"} size={20} />,
+        }}
+      />
+      <Tab.Screen
+        name="Resources"
+        component={Resources}
+        options={{
+          tabBarIcon: () => <Ionicons name={"list"} size={20} />,
+        }}
+      />
+    </Tab.Navigator>
+  );
 }
 
-export default MyTabs
+export default MyTabs;
