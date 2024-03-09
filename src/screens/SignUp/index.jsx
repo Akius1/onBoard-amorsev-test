@@ -9,8 +9,9 @@ import {
   Platform,
   TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../../context/AuthContext";
 
 
 export default function SignUp() {
@@ -20,6 +21,8 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
 
   const [errors, setErrors] = useState({});
+
+  const { signup } = useContext(AuthContext);
 
   const validateForm = () => {
     let errors = {};
@@ -38,6 +41,7 @@ export default function SignUp() {
   const handleSubmit = () => {
     if (validateForm()) {
       console.log("Submitted", username, email, password);
+      signup(username,email,password)
       setUsername("")
       setEmail("");
       setPassword("");

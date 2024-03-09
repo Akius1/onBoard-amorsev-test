@@ -1,12 +1,15 @@
+import { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { AuthContext } from "../../context/AuthContext";
 
 
 export default function HomeScreen() {
+  const { userInfo } = useContext(AuthContext);
   return (
     <View style={styles.container}>
 
       <View>
-        <Text>Hello</Text>
+        <Text>Welcome {userInfo}</Text>
       </View>
     </View>
   );

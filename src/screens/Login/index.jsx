@@ -36,8 +36,8 @@ export default function Login() {
 
   const handleSubmit = () => {
     if (validateForm()) {
-      console.log("Submitted", email, password);
-      login();
+      
+      login(email, password, setErrors);
       setEmail("");
       setPassword("");
       setErrors({});
@@ -74,6 +74,9 @@ export default function Login() {
         {errors.password && (
           <Text style={styles.errorText}>{errors.password}</Text>
         )}
+         {errors.login && (
+          <Text style={styles.errorText}>{errors.login}</Text>
+        )}
         <Button
           style={styles.login}
           title="login"
@@ -81,6 +84,7 @@ export default function Login() {
             handleSubmit();
           }}
         />
+
         <View style={styles.signup}>
           <Text>Don't have an account? </Text>
           <TouchableOpacity onPress={() => navigation.push("SignUp")}>
