@@ -1,1 +1,1 @@
-export const BASE_URL="http://192.168.51.124:3000/auth"
+export const BASE_URL="http://192.168.171.124:3000/auth"
